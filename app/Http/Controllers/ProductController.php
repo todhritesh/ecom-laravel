@@ -4,24 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-       $data = Product::with("category")->get();
+    //    $data = Product::with("category")->get();
+        $data = ["product" => Product::all(),
+        "category" => Category::all(),
+    ];
+
+       return view("product",$data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function singleView($id){
+        $data = [
+            "selected_pro" => Product::find($id),
+            "category" => Category::all(),
+            "product" => Product::all(),
+        ];
+
+        return view("singleView",$data);
+    }
+
+    
     public function create()
     {
         //

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,9 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -29,5 +28,19 @@ Route::prefix('admin')->group(function(){
     Route::resource('product',ProductController::class);
 
 });
+
+
+Route::get("/",[HomeController::class,"index"])->name('index');
+
+Route::get("/products",[ProductController::class,"index"])->name("product.index");
+Route::get("/pro/singleView/{id}",[ProductController::class,"singleView"])->name("product.singleView");
+
+Route::get("/category/{id}",[CategoryController::class,"index"])->name("category.index");
+
+Route::get("/cart",[HomeController::class,"cart"])->name("cart");
+
+Route::get("/checkout",[HomeController::class,"checkout"])->name("checkout");
+
+
 
 require __DIR__.'/auth.php';
