@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +24,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth','verified'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
 
 Route::prefix('admin')->group(function(){
@@ -29,5 +32,14 @@ Route::prefix('admin')->group(function(){
     Route::resource('product',ProductController::class);
 
 });
+
+
+Route::post("/add/to/cart/{pid?}",[OrderController::class,"addToCart"]);
+Route::post("/remove/from/cart/{pid?}",[OrderController::class,"removeFromCart"]);
+
+
+//payment
+Route::get('razorpay-payment', [PaymentController::class, 'create'])->name('pay.with.razorpay'); // create payment
+Route::post('payment', [PaymentController::class, 'payment'])->name('payment'); //accept paymetnt
 
 require __DIR__.'/auth.php';

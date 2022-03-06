@@ -3,83 +3,81 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    function addToCart($pid=null,Request $req){
+        $check_pro = Product::find($pid);
+        if(!$check_pro){
+            return ;
+        }
+
+        $user_id = 12;
+
+        $checkOrderId = Order::where([['user_id',$user_id],['order_status',0]])->orderBy('id','desc')->first();
+
+        if($checkOrderId){
+            $oid = $checkOrderId->id;
+            $checkProduct = OrderItem::where([['order_id',$oid],['product_id',$pid]])->first();
+            if($checkProduct){
+                $checkProduct->qty=$checkProduct->qty+1;
+                $checkProduct->save();
+                return ;
+            }
+        }else{
+            $newOrder = new Order();
+            $newOrder->user_id = $user_id;
+            $newOrder->order_status = 0;
+            $newOrder->save();
+            $newOrder->save();
+            $oid = $newOrder->id;
+        }
+
+        $data = new OrderItem();
+        $data->order_id = $oid;
+        $data->product_id = $pid;
+        $data->qty = $req->qty;
+        $data->save();
+
+        return ;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    function removeFromCart($pid=null){
+        $check_pro = Product::find($pid);
+        if(!$check_pro){
+            return "nii";
+        }
+
+        $user_id = 12;
+
+        $checkOrderId = Order::where([['user_id',$user_id],['order_status',0]])->orderBy('id','desc')->first();
+        if(!$checkOrderId){
+            return ;
+        }
+        $oid = $checkOrderId->id;
+        $checkProduct = OrderItem::where([['order_id',$oid],['product_id',$pid]])->first();
+        if(!$checkProduct){
+            return ;
+        }
+
+        if($checkProduct->qty==1){
+            $checkProduct->delete();
+            return ;
+        }else{
+            $checkProduct->qty = $checkProduct->qty - 1;
+            $checkProduct->save();
+            return ;
+        }
+
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Order $order)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Order $order)
-    {
-        //
+    function CheckOut(){
+        $user_id = Auth::user();
     }
 }
