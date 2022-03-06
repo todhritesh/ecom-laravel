@@ -43,13 +43,19 @@
                                             <td>{{$p['qty']}}</td>
                                             <td>₹ {{$p['total']}}</td>
                                         </tr>
-                                    @endforeach
+                                        @endforeach
 
+                                    <tr class="mt-4">
+                                        <td></td>
+                                        <td colspan="1" class="bg-warning h4 text-center">Sub Total : </td>
+                                        <td></td>
+                                        <td class="h5 text-center">₹ {{$pay_amount}}</td>
+                                    </tr>
                                 </table>
 
                                 <div class="btn-box float-end">
                                     <div class="options">
-                                        <a href="" class="option1 px-0">CONTINUE</a>
+                                        <a href="{{route('pay.with.razorpay',['pay'=>$pay_amount,'oid'=>$oid])}}" class="option1 px-0">CONTINUE</a>
                                     </div>
                                 </div>
                            </div>

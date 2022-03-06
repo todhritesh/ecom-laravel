@@ -6,50 +6,59 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Razorpay\Api\Api;
 use Session;
 use Redirect;
 
 class PaymentController extends Controller
 {
-    public function create()
+    public function create($pay=null,$oid=null)
     {
-        $uid = 12;
-        $check_oid = Order::where([['user_id',$uid],['order_status',0]])->orderBy('id','desc')->first();
-        if(!$check_oid){
-            return ;
+        if($pay==null){
+            return redirect()->back();
+        }
+        if($oid==null){
+            return redirect()->back();
         }
 
-        $oid = $check_oid->id;
 
-        $check_cart = OrderItem::where('order_id',$oid)->count();
+        $user = Auth::user();
 
-        if(!$check_cart){
-            return ;
-        }
+        // $check_oid = Order::where([['user_id',$uid],['order_status',0]])->orderBy('id','desc')->first();
+        // if(!$check_oid){
+        //     return ;
+        // }
+
+        // $oid = $check_oid->id;
+
+        // $check_cart = OrderItem::where('order_id',$oid)->count();
+
+        // if(!$check_cart){
+        //     return ;
+        // }
         \Session::put('uoid',$oid);
-        $get_cart_product = OrderItem::with("productDetails")->where('order_id',$oid)->get();
-        $product_details_array = [];
-        $pay_amount = 0;
-        foreach($get_cart_product as $pro_details){
-            $p = $pro_details['productDetails'];
-            $cal_total = $p->pro_qty * $p->pro_price;
-            $pay_amount+=$cal_total;
+        // $get_cart_product = OrderItem::with("productDetails")->where('order_id',$oid)->get();
+        // $product_details_array = [];
+        // $pay_amount = 0;
+        // foreach($get_cart_product as $pro_details){
+        //     $p = $pro_details['productDetails'];
+        //     $cal_total = $p->pro_qty * $p->pro_price;
+        //     $pay_amount+=$cal_total;
 
-            $product_details_array[]=[
-                'title'=>$p->pro_title,
-                'price'=>$p->pro_price,
-                'qty'=>$p->pro_qty,
-                'image'=>$p->pro_image,
-                'total'=>$cal_total,
-            ];
-        }
+        //     $product_details_array[]=[
+        //         'title'=>$p->pro_title,
+        //         'price'=>$p->pro_price,
+        //         'qty'=>$p->pro_qty,
+        //         'image'=>$p->pro_image,
+        //         'total'=>$cal_total,
+        //     ];
+        // }
 
-        $product_details_array;
+        // $product_details_array;
 
         $data = [
-            'items' => $product_details_array,
-            'pay_amount'=>$pay_amount
+            'pay_amount'=>$pay
         ];
 
 

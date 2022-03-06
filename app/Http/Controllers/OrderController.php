@@ -122,7 +122,6 @@ class OrderController extends Controller
                 $p = $pro_details['productDetails'];
                 $cal_total = $pro_details->qty * $p->pro_price;
                 $pay_amount+=$cal_total;
-
                 $product_details_array[]=[
                     'title'=>$p->pro_title,
                     'price'=>$p->pro_price,
@@ -136,7 +135,9 @@ class OrderController extends Controller
             $data = [
                 'category' => Category::all(),
                 'product' => Product::all(),
-                'product_details' => $product_details_array
+                'product_details' => $product_details_array,
+                'pay_amount' => $pay_amount,
+                'oid' => $check_oid,
             ];
             return view('checkoutPage',$data);
     }

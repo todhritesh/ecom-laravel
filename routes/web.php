@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -67,7 +68,7 @@ Route::get("/checkout/{oid?}",[OrderController::class,"checkout"])->name('checko
 
 
 //payment
-Route::get('razorpay-payment', [PaymentController::class, 'create'])->name('pay.with.razorpay'); // create payment
+Route::get('razorpay-payment/{pay?}/{oid?}', [PaymentController::class, 'create'])->name('pay.with.razorpay'); // create payment
 Route::post('payment', [PaymentController::class, 'payment'])->name('payment'); //accept paymetnt
 
 
