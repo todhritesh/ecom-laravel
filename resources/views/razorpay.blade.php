@@ -43,10 +43,10 @@
                                     @csrf
                                     <script src="https://checkout.razorpay.com/v1/checkout.js"
                                             data-key="{{ env('RAZOR_KEY') }}"
-                                            data-amount="{{$data['pay_amount']*100}}"
-                                            data-buttontext="{{'Pay '.$data['pay_amount'] .' INR'}}"
+                                            data-amount="{{$pay_amount*100}}"
+                                            data-buttontext="{{'Pay '.$pay_amount .' INR'}}"
                                             data-name="{{auth()->user()->name}}"
-                                            data-description="CodeHunger"
+                                            data-description=""
                                             data-image="{{ asset('/image/nice.png') }}"
                                             data-prefill.name="name"
                                             data-prefill.contact=9999999999

@@ -42,20 +42,19 @@ Route::get("/pro/singleView/{id}",[ProductController::class,"singleView"])->name
 
 Route::get("/category/{id}",[CategoryController::class,"index"])->name("category.index");
 
-Route::get("/cart",[HomeController::class,"cart"])->name("cart");
-
-Route::get("/checkoutPage",[HomeController::class,"checkout"])->name("checkoutPage");
 
 
 
 Route::group(['middleware'=>['LoginMiddleware']],function(){
 
+    //payment
+    Route::get('razorpay-payment/{pay?}/{oid?}', [PaymentController::class, 'create'])->name('pay.with.razorpay'); // create payment
+    Route::post('payment', [PaymentController::class, 'payment'])->name('payment'); //accept paymetnt
     Route::get("/add/to/cart/{pid?}",[OrderController::class,"addToCart"])->name('addToCart');
-});
 
+    Route::get("/cart",[HomeController::class,"cart"])->name("cart");
 
-
-//dhritesh
+Route::get("/checkoutPage",[HomeController::class,"checkout"])->name("checkoutPage");
 
 
 Route::get("/remove/from/cart/{pid?}",[OrderController::class,"removeFromCart"])->name('removeFromCart');
@@ -67,9 +66,10 @@ Route::get("/buy/now/{pid?}",[OrderController::class,"buyNow"])->name('buy_now')
 Route::get("/checkout/{oid?}",[OrderController::class,"checkout"])->name('checkout');
 
 
-//payment
-Route::get('razorpay-payment/{pay?}/{oid?}', [PaymentController::class, 'create'])->name('pay.with.razorpay'); // create payment
-Route::post('payment', [PaymentController::class, 'payment'])->name('payment'); //accept paymetnt
+});
+
+
+
 
 
 

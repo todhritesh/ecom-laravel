@@ -89,7 +89,7 @@ class PaymentController extends Controller
             $save_payment = new Payment();
             $save_payment->r_payment_id = $response['id'];
             $save_payment->order_id = $oid;
-            $save_payment->user_id = 12;
+            $save_payment->user_id = Auth::user()->id;
             $save_payment->status = $response['status'];
             $save_payment->amount = $response['amount'];
             $save_payment->save();
