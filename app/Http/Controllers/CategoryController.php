@@ -3,19 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
 
-    public function index()
+    public function index($id)
     {
-        $data = Category::all();
+        // return $id;
+        $data = [
+            'cate' => Category::find($id),
+            'category' => Category::all(),
+            'product' => Product::where('category_id',$id)->get(),
+            'countProduct' => Product::where('category_id',$id)->count()
+        ];
+        return view("categories",$data);
     }
 
-    public function create()
+    public function create($req)
     {
-        //
+        $cat = new Category();
+
+        $cat->cat_title = $req->title;
+        $cat->save();
+
+        return redirect("category.index");
     }
 
     public function store(Request $request)
