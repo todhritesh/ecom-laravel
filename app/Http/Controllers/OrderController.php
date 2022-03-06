@@ -34,7 +34,6 @@ class OrderController extends Controller
             $newOrder->user_id = $user_id;
             $newOrder->order_status = 0;
             $newOrder->save();
-            $newOrder->save();
             $oid = $newOrder->id;
         }
 
@@ -45,6 +44,38 @@ class OrderController extends Controller
         $data->save();
 
         return ;
+    }
+
+    function buyNow($pid=null,Request $req){
+        $user_id = 12;
+        $newOrder = new Order();
+        $newOrder->user_id = $user_id;
+        $newOrder->order_status = 0;
+        $newOrder->save();
+        $oid = $newOrder->id;
+
+        $data = new OrderItem();
+        $data->order_id = $oid;
+        $data->product_id = $pid;
+        $data->qty = $req->qty;
+        $data->save();
+
+        return redirect()->route('checkout', ["oid"=>$oid]);
+    }
+
+    function checkOut($oid=null){
+        $user_id = 12;
+
+        if($oid==null){
+            // view ("checkout)
+        }else{
+            $check_oid = Order::where([['user_id',$user_id],['id',$oid],['order_status',0]])->first();
+            if(!$check_oid){
+                return ;
+            }
+
+            // view checkout
+        }
     }
 
     function removeFromCart($pid=null){
@@ -77,7 +108,4 @@ class OrderController extends Controller
 
     }
 
-    function CheckOut(){
-        $user_id = Auth::user();
-    }
 }

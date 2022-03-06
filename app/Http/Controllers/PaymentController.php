@@ -53,7 +53,7 @@ class PaymentController extends Controller
         ];
 
 
-        return view('razorpay',["data"=>$data]);
+        return view('razorpay',$data);
     }
 
     public function payment(Request $request)

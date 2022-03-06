@@ -37,6 +37,12 @@ Route::prefix('admin')->group(function(){
 Route::post("/add/to/cart/{pid?}",[OrderController::class,"addToCart"]);
 Route::post("/remove/from/cart/{pid?}",[OrderController::class,"removeFromCart"]);
 
+//buy now
+Route::post("/buy/now/{pid?}",[OrderController::class,"buyNow"]);
+
+//checkout
+Route::get("/checkout/{oid?}",[OrderController::class,"checkout"])->name('checkout');
+
 
 //payment
 Route::get('razorpay-payment', [PaymentController::class, 'create'])->name('pay.with.razorpay'); // create payment

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("user_id")->constrained();
             $table->integer("order_status");
+            $table->integer("is_buy_now")->default(0);
             $table->timestamps();
         });
     }
