@@ -2,12 +2,6 @@
 
 @section('title','Homepage')
 
-@section('content')
-    
-@extends('base')
-     
-
-@section('title',"Our Products")
 
 @section('content')
      <!-- inner page section -->
@@ -32,7 +26,7 @@
             </p>
          </div>
          <div class="row">
-            <div class="col-sm-6 col-md-4 col-lg-3">
+            {{-- <div class="col-sm-6 col-md-4 col-lg-3">
                <div class="box">
                   <div class="option_container">
                      <div class="options">
@@ -53,7 +47,50 @@
                      </h6>
                   </div>
                </div>
+            </div> --}}
+
+            @if (count($product) > 0)
+            @foreach ($product as $pro)
+            <div class="col-sm-6 col-md-4 col-lg-3">
+               <div class="box py-1">
+                  <div class="option_container">
+                     <div class="options">
+                        <a href="{{ route('product.singleView',['id' => $pro->id]) }}" class="option1">
+                           View Product
+                        </a>
+                        <a href="" class="option2">
+                        Buy Now
+                        </a>
+                        <div class="bg-light text-center">
+                           <h5>
+                              {{$pro->pro_title}}
+                           </h5>
+                           <h6>
+                              ₹{{$pro->pro_price}}
+                           </h6>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="img-box">
+                     <img src="images/p1.png" alt="">
+                  </div>
+                  <div class="detail-box d-block">
+                     <h5 class="text-start">
+                        {{$pro->pro_title}}
+                     </h5>
+                     <h6 class="text-start">
+                        ₹{{$pro->pro_price}}
+                     </h6>
+                  </div>
+               </div>
             </div>
+            
+            @endforeach
+         
+             
+         @else
+            <div class="alert alert-danger">NO PRODUCTS ARE AVAILABLE FOR NOW</div>
+         @endif
             
          </div>
          <div class="btn-box">
@@ -65,7 +102,4 @@
    </section>
    <!-- end product section -->
    
-@endsection
-
-
 @endsection

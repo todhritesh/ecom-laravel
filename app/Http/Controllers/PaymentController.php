@@ -97,6 +97,14 @@ class PaymentController extends Controller
             $order= Order::find($oid);
             $order->order_status = 1;
             $order->save();
+            $order->order_status = 1;
+            $order->save();
+
+            $orderItemLoop= OrderItem::where([['order_id',$oid],['o_status',0],['user_id',Auth::user()->id]])->get();
+            foreach($orderItemLoop as $o){
+                $o->o_status = 1;
+                $o->save();
+            }
         }else{
             $save_payment = new Payment();
             $save_payment->r_payment_id = $response['id'];
@@ -106,7 +114,7 @@ class PaymentController extends Controller
             $save_payment->amount = $response['amount'];
             $save_payment->save();
         }
-        return 345;
+        return redirect()->route("index");
 
         \Session::put('success', 'Payment successful');
 

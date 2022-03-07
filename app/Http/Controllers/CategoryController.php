@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -12,11 +14,15 @@ class CategoryController extends Controller
     public function index($id)
     {
         // return $id;
+        $user_id = Auth::user()->id;
+        $count_cart = OrderItem::where([['user_id',$user_id],['o_status',0]])->count();
+
         $data = [
             'cate' => Category::find($id),
             'category' => Category::all(),
             'product' => Product::where('category_id',$id)->get(),
-            'countProduct' => Product::where('category_id',$id)->count()
+            'countProduct' => Product::where('category_id',$id)->count(),
+            'cart_value' => $count_cart,
         ];
         return view("categories",$data);
     }

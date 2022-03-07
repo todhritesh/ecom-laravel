@@ -5,25 +5,34 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\OrderItem;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
 
     public function index()
     {
+        $count_cart = OrderItem::where([['user_id',Auth::user()->id],['o_status',0]])->count();
+
     //    $data = Product::with("category")->get();
         $data = ["product" => Product::all(),
         "category" => Category::all(),
+        'cart_value' => $count_cart
     ];
 
        return view("product",$data);
     }
 
     public function singleView($id){
+        $count_cart = OrderItem::where([['user_id',Auth::user()->id],['o_status',0]])->count();
+
         $data = [
             "selected_pro" => Product::find($id),
             "category" => Category::all(),
             "product" => Product::all(),
+            'cart_value' => $count_cart
+
         ];
 
         return view("singleView",$data);

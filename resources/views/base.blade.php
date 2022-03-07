@@ -46,6 +46,8 @@
                               @foreach ($category as $cat)
                               <li><a href="{{ route('category.index', ['id'=>$cat->id]) }}">{{$cat->cat_title}}</a></li>
                               @endforeach
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a href="" class="">View all...</a></li>
                            </ul>
                         </li>
                         <li class="nav-item">
@@ -54,6 +56,7 @@
                         {{-- <li class="nav-item">
                            <a class="nav-link" href="contact.html">Contact</a>
                         </li> --}}
+                        @if (Auth::check())
                         <li class="nav-item">
                            <a class="me-4 nav-link position-relative" href="{{ route('cart') }}">
                               <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
@@ -110,11 +113,24 @@
                                 </svg>
 
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                99+
+                                {{$cart_value}}
                             </span>
 
                            </a>
                         </li>
+                        <li class="nav-item dropdown">
+                           <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Profile <span class="caret"></span></a>
+                              <ul class="dropdown-menu">
+                                <li class="dropdown-item"><a href="{{ route('order') }}">Orders</a></li>
+                                <li class="dropdown-item"><a href="{{ route('logout') }}">Logout</a></li>
+                              </ul>
+                           </li>
+                        </li>
+                        {{-- <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">LOGOUT</a></li> --}}
+                        @else
+                            <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">LOGIN</a></li>
+                        @endif
                         <form class="form-inline">
                            <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
                            <i class="fa fa-search" aria-hidden="true"></i>
@@ -141,7 +157,7 @@
               <div class="col-md-4">
                   <div class="full">
                      <div class="logo_footer">
-                       <a href="#"><img width="210" src="images/logo.png" alt="#" /></a>
+                        <a href="" class="navbar-brand text-dark fs-2 fw-bolder py-0">JMDElec</a>
                      </div>
                      <div class="information_f">
                        <p><strong>ADDRESS:</strong> 28 White tower, Street Name New York City, USA</p>
@@ -207,7 +223,7 @@
      </footer>
      <!-- footer end -->
      <div class="cpy_">
-        <p>© 2021 All Rights Reserved By>PlutoWeb / Designed by Noah Emmanuel</a></p>
+        <p>© 2021 All Rights Reserved</a></p>
      </div>
      <!-- jQery -->
      <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
@@ -217,5 +233,7 @@
      <script src="{{ asset('js/bootstrap.js') }}"></script>
      <!-- custom js -->
      <script src="{{ asset('js/custom.js') }}"></script>
+
+     
   </body>
 </html>
