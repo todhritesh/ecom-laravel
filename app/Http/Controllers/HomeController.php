@@ -21,7 +21,7 @@ class HomeController extends Controller
     }
 
 
-    public function cart(){
+    public function cart(Request $req){
         $user_id = Auth::user()->id;
         $check_oid = Order::where([['user_id',$user_id],['order_status',0]])->orderBy('id','desc')->count();
         if(!$check_oid){
