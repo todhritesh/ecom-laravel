@@ -3,18 +3,21 @@
 @section('title','Homepage')
 
 @section('content')
-    
+
 
 <!-- end header section -->
          <!-- slider section -->
-         <section class="slider_section">
-            <div class="slider_bg_box">
+         <section class="p-5" style="background-color: #f7444e" >
+            {{-- <div class="slider_bg_box">
                <img src="{{ asset('/images/homeBanner.png') }}" alt="" style="height: 550px">
-            </div>
-            <div class="card mx-auto col-8 rounded-pill" style="background-color: #f7444e">
-               <div class="card-body text-center">
-                  <p class="display-4 text-center mb-0">YOUR ONE STOP SHOP FOR SOUND REQUIREMENTS.</p>
-               </div>
+            </div> --}}
+            <div class="card border border-0 mx-auto col-12 p-5" style="background-color: #f7444e">
+               <div class="card-body text-center p-5 m-5">
+                  {{-- <p class="display-4 text-center mb-0">YOUR ONE STOP SHOP FOR SOUND REQUIREMENTS.</p> --}}
+                <div class="display-1 p-5 text-white " style="font-weight: bold">
+                    YOUR ONE STOP SHOP FOR SOUND REQUIREMENTS.
+                </div>
+                </div>
             </div>
          </section>
          <!-- end slider section -->
@@ -267,7 +270,7 @@
          </div>
       </section>
       <!-- end why section -->
-      
+
       <!-- arrival section -->
       <section class="arrival_section">
          <div class="container">
@@ -280,7 +283,7 @@
          </div>
       </section>
       <!-- end arrival section -->
-      
+
       <!-- product section -->
       <section class="product_section layout_padding">
          <div class="container">
@@ -311,7 +314,7 @@
                            {{$pro->pro_title}}
                         </h5>
                         <h6>
-                           $75
+                           {{}}
                         </h6>
                      </div>
                   </div>
