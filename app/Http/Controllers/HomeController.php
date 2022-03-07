@@ -13,8 +13,8 @@ class HomeController extends Controller
 {
     public function index(){
         if(Auth::user()){
-        $user_id = Auth::user()->id;
-        $count_cart = OrderItem::where([['user_id',$user_id],['o_status',0]])->count();
+            $user_id = Auth::user()->id;
+            $count_cart = OrderItem::where([['user_id',$user_id],['o_status',0]])->count();
 
         }
         else{

@@ -72,7 +72,7 @@
                      </div>
                   </div>
                   <div class="img-box">
-                     <img src="images/p1.png" alt="">
+                     <img src="{{ asset('images/speaker.png') }}" alt="">
                   </div>
                   <div class="detail-box d-block">
                      <h5 class="text-start">
@@ -84,14 +84,14 @@
                   </div>
                </div>
             </div>
-            
+
             @endforeach
-         
-             
+
+
          @else
             <div class="alert alert-danger">NO PRODUCTS ARE AVAILABLE FOR NOW</div>
          @endif
-            
+
          </div>
          <div class="btn-box">
             <a href="">
@@ -101,5 +101,5 @@
       </div>
    </section>
    <!-- end product section -->
-   
+
 @endsection

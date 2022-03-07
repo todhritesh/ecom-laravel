@@ -28,10 +28,18 @@
          <div class="row">
             @if (count($product) > 0)
                @foreach ($product as $pro)
-               @php
-                $cal_discount = Auth::user()->role == 'user' ? (($pro->pro_price * $pro->user_margin)/100) :  (($pro->pro_price * $pro->retail_margin)/100) ;
-                $cal_price = $pro->pro_price - $cal_discount ;
-               @endphp
+
+               @auth
+                    @php
+                        $cal_discount = Auth::user()->role == 'user' ? (($pro->pro_price * $pro->user_margin)/100) :  (($pro->pro_price * $pro->retail_margin)/100) ;
+                        $cal_price = $pro->pro_price - $cal_discount ;
+                    @endphp
+                @endauth
+               @guest
+                   @php
+                       $cal_price = $pro->pro_price
+                   @endphp
+               @endguest
 
                <div class="col-sm-6 col-md-4 col-lg-3">
                   <div class="box py-1">

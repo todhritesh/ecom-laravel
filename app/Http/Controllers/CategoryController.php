@@ -13,9 +13,15 @@ class CategoryController extends Controller
 
     public function index($id)
     {
-        // return $id;
-        $user_id = Auth::user()->id;
-        $count_cart = OrderItem::where([['user_id',$user_id],['o_status',0]])->count();
+        if(Auth::user()){
+            $user_id = Auth::user()->id;
+            $count_cart = OrderItem::where([['user_id',$user_id],['o_status',0]])->count();
+
+        }
+        else{
+            $count_cart = 0;
+        }
+
 
         $data = [
             'cate' => Category::find($id),
