@@ -12,10 +12,26 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     public function index(){
+        if(Auth::user()){
+        $user_id = Auth::user()->id;
+        $count_cart = OrderItem::where([['user_id',$user_id],['o_status',0]])->count();
+
+        }
+        else{
+            $count_cart = 0;
+        }
+        // $oid_for_cart = Order::where([['user_id',$user_id],['order_status',0]])->orderBy('id','desc')->get();
+        // $counter = 0 ;
+        // foreach($oid_for_cart as $o){
+        //     $count = OrderItem::where('order_id',$o->id)->count();
+        //     $counter+=$count;
+        // }
+
 
         $data = [
             'category' => Category::all(),
-            'product' => Product::all()
+            'product' => Product::take(10)->get(),
+            'cart_value' =>$count_cart,
         ];
         return view("index",$data);
     }
@@ -23,6 +39,10 @@ class HomeController extends Controller
 
     public function cart(){
         $user_id = Auth::user()->id;
+
+        $count_cart = OrderItem::where([['user_id',$user_id],['o_status',0]])->count();
+
+
         $check_oid = Order::where([['user_id',$user_id],['order_status',0]])->orderBy('id','desc')->count();
         if(!$check_oid){
             return redirect()->back();
@@ -60,15 +80,20 @@ class HomeController extends Controller
         $data = [
             'cart_products'=>$product_details_array,
             'category' => Category::all(),
-            'product' => Product::all()
+            'product' => Product::all(),
+            'cart_value' => $count_cart
         ];
         return view("cart",$data);
     }
 
     public function checkout(){
+        $user_id = Auth::user()->id;
+        $count_cart = OrderItem::where([['user_id',$user_id],['o_status',0]])->count();
+
         $data = [
             'category' => Category::all(),
-            'product' => Product::all()
+            'product' => Product::all(),
+            'cart_value'=>$count_cart
         ];
 
         return view("checkout",$data);

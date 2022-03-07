@@ -14,6 +14,7 @@ class OrderController extends Controller
 {
     function addToCart($pid=null){
 
+
         $check_pro = Product::find($pid);
         if(!$check_pro){
             return redirect()->back();
@@ -59,6 +60,7 @@ class OrderController extends Controller
         $data = new OrderItem();
         $data->order_id = $oid;
         $data->product_id = $pid;
+        $data->user_id = $user_id;
         $data->qty = 1;
         $data->save();
 
@@ -97,10 +99,13 @@ class OrderController extends Controller
         $data = new OrderItem();
         $data->order_id = $oid;
         $data->product_id = $pid;
+        $data->user_id = $user_id;
         $data->qty = 1;
         $data->save();
+        $user_id = Auth::user()->id;
+        $count_cart = OrderItem::where([['user_id',$user_id],['o_status',0]])->count();
 
-        return redirect()->route('checkout', ["oid"=>$oid]);
+        return redirect()->route('checkout', ["oid"=>$oid,'cart_value'=>$count_cart]);
     }
 
     function checkOut($oid=null){
@@ -131,13 +136,15 @@ class OrderController extends Controller
                 ];
             }
 
-
+            $user_id = Auth::user()->id;
+            $count_cart = OrderItem::where([['user_id',$user_id],['o_status',0]])->count();
             $data = [
                 'category' => Category::all(),
                 'product' => Product::all(),
                 'product_details' => $product_details_array,
                 'pay_amount' => $pay_amount,
                 'oid' => $check_oid,
+                "cart_value" => $count_cart
             ];
             return view('checkoutPage',$data);
     }
@@ -179,6 +186,46 @@ class OrderController extends Controller
         }
 
 
+    }
+
+    public function orderHistory(){
+        if(!Auth::user()){
+            return redirect()->route("login");
+        }
+        $user_id = Auth::user()->id;
+            $getOrderHistory = OrderItem::where([["user_id",$user_id],["o_status",1]])->get();
+            $product_details_array = [];
+            $pay_amount = 0;
+            foreach($getOrderHistory as $pro_details){
+                $p = $pro_details['productDetails'];
+                $cal_total = $pro_details->qty * $p->pro_price;
+                $pay_amount+=$cal_total;
+                $product_details_array[]=[
+                    'title'=>$p->pro_title,
+                    'price'=>$p->pro_price,
+                    'qty'=>$pro_details->qty,
+                    'image'=>$p->pro_image,
+                    'total'=>$cal_total,
+                ];
+            }
+
+            $checkOrderId = Order::where([['user_id',$user_id],['order_status',0],['is_buy_now',0]])->orderBy('id','desc')->first();
+
+        if($checkOrderId){
+            $oid = $checkOrderId->id;
+        }
+
+            $user_id = Auth::user()->id;
+            $count_cart = OrderItem::where([['user_id',$user_id],['o_status',0]])->count();
+            $data = [
+                'category' => Category::all(),
+                'product' => Product::all(),
+                'product_details' => $product_details_array,
+                'pay_amount' => $pay_amount,
+                "cart_value" => $count_cart,
+                "oid" => $oid
+            ];
+            return view('orders',$data);
     }
 
 }

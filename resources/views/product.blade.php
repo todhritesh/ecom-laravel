@@ -49,7 +49,7 @@
                         </div>
                      </div>
                      <div class="img-box">
-                        <img src="images/p1.png" alt="">
+                        <img src="{{ asset('images/speaker.png') }}" alt="">
                      </div>
                      <div class="detail-box d-block">
                         <h5 class="text-start">

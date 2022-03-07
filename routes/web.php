@@ -65,6 +65,8 @@ Route::get("/buy/now/{pid?}",[OrderController::class,"buyNow"])->name('buy_now')
 //checkout
 Route::get("/checkout/{oid?}",[OrderController::class,"checkout"])->name('checkout');
 
+Route::get("/orders",[OrderController::class,"orderHistory"])->name("order");
+
 
 });
 

@@ -27,7 +27,7 @@
             @if ($selected_pro)
 
                <div class="card col-lg-4 shadow-sm border-0">
-                   <img src="{{ asset('images/p1.png') }}" alt="" class="img-fluid" style="height:500px">
+                   <img src="{{ asset('images/speaker.png') }}" alt="" class="img-fluid" style="height:500px">
                 </div>
                 <div class="col-lg-1"></div>
 
@@ -52,7 +52,7 @@
                     <a href="{{route('addToCart',['pid'=>$selected_pro->id])}}" class="option1 px-0 fs-5" style="width: 10pc">
                         ADD TO CART
                      </a>
-                     <a href="" class="option2 fs-5 px-0" style="width: 10pc">
+                     <a href="{{ route('buy_now',['pid'=>$selected_pro->id]  ) }}" class="option2 fs-5 px-0" style="width: 10pc">
                      BUY NOW
                      </a>
                 </div>

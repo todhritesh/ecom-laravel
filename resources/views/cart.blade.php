@@ -46,14 +46,14 @@
                                 </div>
                                 <p class="text-secondary">Sold by: Jai Mata Di Electronics</p>
                             </div>
-                            <div class="ms-auto">
+                            {{-- <div class="ms-auto">
                                 <div class="btn-box">
                                     <div class="options">
                                         <a href="{{ route('buy_now',['pid'=>$cp['pid']]  ) }}" class="option1">BUY NOW</a>
                                         <a href="" class="option2 fs-6 px-0">ADD TO WISHLIST</a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
