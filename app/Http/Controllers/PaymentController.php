@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Razorpay\Api\Api;
@@ -25,37 +26,8 @@ class PaymentController extends Controller
 
         $user = Auth::user();
 
-        // $check_oid = Order::where([['user_id',$uid],['order_status',0]])->orderBy('id','desc')->first();
-        // if(!$check_oid){
-        //     return ;
-        // }
-
-        // $oid = $check_oid->id;
-
-        // $check_cart = OrderItem::where('order_id',$oid)->count();
-
-        // if(!$check_cart){
-        //     return ;
-        // }
         \Session::put('uoid',$oid);
-        // $get_cart_product = OrderItem::with("productDetails")->where('order_id',$oid)->get();
-        // $product_details_array = [];
-        // $pay_amount = 0;
-        // foreach($get_cart_product as $pro_details){
-        //     $p = $pro_details['productDetails'];
-        //     $cal_total = $p->pro_qty * $p->pro_price;
-        //     $pay_amount+=$cal_total;
 
-        //     $product_details_array[]=[
-        //         'title'=>$p->pro_title,
-        //         'price'=>$p->pro_price,
-        //         'qty'=>$p->pro_qty,
-        //         'image'=>$p->pro_image,
-        //         'total'=>$cal_total,
-        //     ];
-        // }
-
-        // $product_details_array;
 
         $data = [
             'pay_amount'=>$pay
@@ -96,12 +68,24 @@ class PaymentController extends Controller
 
             $order= Order::find($oid);
             $order->order_status = 1;
+            // $order->paid = $response['amount'];
             $order->save();
             $order->order_status = 1;
             $order->save();
 
             $orderItemLoop= OrderItem::where([['order_id',$oid],['o_status',0],['user_id',Auth::user()->id]])->get();
             foreach($orderItemLoop as $o){
+                $pro = Product::where('id',$o->product_id)->first();
+
+                $pro_price = $pro->pro_price ;
+                $user_margin = $pro->user_margin ;
+                $retail_margin = $pro->retail_margin ;
+
+                $cal_discount = Auth::user()->role == 'user' ? (($pro_price * $user_margin)/100) :  (($pro_price * $retail_margin)/100) ;
+                $cal_price = $pro_price - $cal_discount ;
+
+                $cal_total = $o->qty * $cal_price;
+                $o->paid = $cal_total;
                 $o->o_status = 1;
                 $o->save();
             }
@@ -109,7 +93,7 @@ class PaymentController extends Controller
             $save_payment = new Payment();
             $save_payment->r_payment_id = $response['id'];
             $save_payment->order_id = $oid;
-            $save_payment->user_id = 12;
+            $save_payment->user_id = Auth::user()->id;
             $save_payment->status = $response['status'];
             $save_payment->amount = $response['amount'];
             $save_payment->save();

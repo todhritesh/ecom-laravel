@@ -20,13 +20,6 @@ class HomeController extends Controller
         else{
             $count_cart = 0;
         }
-        // $oid_for_cart = Order::where([['user_id',$user_id],['order_status',0]])->orderBy('id','desc')->get();
-        // $counter = 0 ;
-        // foreach($oid_for_cart as $o){
-        //     $count = OrderItem::where('order_id',$o->id)->count();
-        //     $counter+=$count;
-        // }
-
 
         $data = [
             'category' => Category::all(),
@@ -66,13 +59,19 @@ class HomeController extends Controller
         $product_details_array = [];
         foreach($get_cart_product as $pro_details){
             $p = $pro_details['productDetails'];
+            $cal_discount = Auth::user()->role == 'user' ? (($p->pro_price * $p->user_margin)/100) :  (($p->pro_price * $p->retail_margin)/100) ;
+                $cal_price = $p->pro_price - $cal_discount ;
+
+                $cal_total = $pro_details->qty * $cal_price;
+                $cal_save = $pro_details->qty * $cal_discount;
             $product_details_array[]=[
                 'pid'=>$p->id,
                 'title'=>$p->pro_title,
-                'price'=>$p->pro_price,
+                'price'=>$cal_price ,
                 'qty'=>$pro_details->qty,
                 'image'=>$p->pro_image,
-                'total'=>$pro_details->qty * $p->pro_price
+                'total'=>$cal_total,
+                'save'=>$cal_save,
             ];
         }
         $product_details_array;

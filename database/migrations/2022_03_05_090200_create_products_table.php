@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string("pro_title");
             $table->foreignId("category_id")->constrained();
             $table->string("pro_price");
+            $table->float("user_margin");
+            $table->float("retail_margin");
             $table->string("pro_qty");
             $table->string("pro_image");
             $table->text("pro_description");

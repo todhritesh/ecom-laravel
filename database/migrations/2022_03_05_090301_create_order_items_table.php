@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId("product_id")->constrained();
             $table->integer("qty");
             $table->integer("o_status")->default(0);
+            $table->float("paid")->nullable();
             $table->foreignId("user_id")->constrained();
             $table->timestamps();
         });

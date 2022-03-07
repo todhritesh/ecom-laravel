@@ -112,7 +112,10 @@ class OrderController extends Controller
         $user_id = Auth::user()->id;
 
         if($oid==null){
-            $check_oid = Order::where([['user_id',$user_id],['order_status',0],['is_buy_now',0]])->first();
+           $check_oid = Order::where([['user_id',$user_id],['order_status',0],['is_buy_now',0]])->first();
+           if(!$check_oid)
+                $check_oid = Order::where([['user_id',$user_id],['order_status',0],['is_buy_now',1]])->first();
+
         }else{
             $check_oid = Order::where([['user_id',$user_id],['id',$oid],['order_status',0],['is_buy_now',1]])->first();
             if(!$check_oid){
@@ -125,16 +128,23 @@ class OrderController extends Controller
             $pay_amount = 0;
             foreach($get_cart_product as $pro_details){
                 $p = $pro_details['productDetails'];
-                $cal_total = $pro_details->qty * $p->pro_price;
+                $cal_discount = Auth::user()->role == 'user' ? (($p->pro_price * $p->user_margin)/100) :  (($p->pro_price * $p->retail_margin)/100) ;
+                $cal_price = $p->pro_price - $cal_discount ;
+
+                $cal_total = $pro_details->qty * $cal_price;
+                $cal_save = $pro_details->qty * $cal_discount;
                 $pay_amount+=$cal_total;
                 $product_details_array[]=[
                     'title'=>$p->pro_title,
-                    'price'=>$p->pro_price,
+                    'price'=>$cal_price ,
                     'qty'=>$pro_details->qty,
                     'image'=>$p->pro_image,
+                    'save'=>$cal_save,
                     'total'=>$cal_total,
                 ];
             }
+
+            $product_details_array;
 
             $user_id = Auth::user()->id;
             $count_cart = OrderItem::where([['user_id',$user_id],['o_status',0]])->count();
@@ -198,22 +208,24 @@ class OrderController extends Controller
             $pay_amount = 0;
             foreach($getOrderHistory as $pro_details){
                 $p = $pro_details['productDetails'];
+
+                $cal_discount = Auth::user()->role == 'user' ? (($p->pro_price * $p->retail_margin)/100) :  (($p->pro_price * $p->user_margin)/100) ;
+                $cal_price = $p->pro_price - $cal_discount ;
+                // $cal_total = $pro_details->qty * $cal_price;
+
+
                 $cal_total = $pro_details->qty * $p->pro_price;
                 $pay_amount+=$cal_total;
                 $product_details_array[]=[
                     'title'=>$p->pro_title,
-                    'price'=>$p->pro_price,
+                    'price'=>$cal_price,
                     'qty'=>$pro_details->qty,
                     'image'=>$p->pro_image,
-                    'total'=>$cal_total,
+                    // 'total'=>$cal_total,
+                    'total'=>$pro_details->paid
                 ];
             }
 
-            $checkOrderId = Order::where([['user_id',$user_id],['order_status',0],['is_buy_now',0]])->orderBy('id','desc')->first();
-
-        if($checkOrderId){
-            $oid = $checkOrderId->id;
-        }
 
             $user_id = Auth::user()->id;
             $count_cart = OrderItem::where([['user_id',$user_id],['o_status',0]])->count();
@@ -221,9 +233,9 @@ class OrderController extends Controller
                 'category' => Category::all(),
                 'product' => Product::all(),
                 'product_details' => $product_details_array,
-                'pay_amount' => $pay_amount,
+                // 'pay_amount' => $pay_amount,
                 "cart_value" => $count_cart,
-                "oid" => $oid
+                // "oid" => $oid
             ];
             return view('orders',$data);
     }

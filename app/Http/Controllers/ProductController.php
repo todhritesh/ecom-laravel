@@ -71,7 +71,6 @@ class ProductController extends Controller
         $data->pro_image = $img_name;
         $request->pro_image->storeAs("/public/producs",$img_name);
         $data->save();
-        return 345;
     }
 
     /**
