@@ -16,6 +16,23 @@
       </div>
    </div>
 </section>
+
+@if($message = Session::get('success'))
+<div class="alert alert-success alert-dismissible fade {{ Session::has('success') ? 'show' : 'in' }}" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+    </button>
+    <strong>Success!</strong> {{ $message }}
+</div>
+@endif
+@if($message = Session::get('failure'))
+<div class="alert alert-danger alert-dismissible fade {{ Session::has('success') ? 'show' : 'in' }}" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">×</span>
+    </button>
+    <strong>Failure!</strong> {{ $message }}
+</div>
+@endif
 <!-- end inner page section -->
 <!-- product section -->
 <section class="product_section layout_padding">
@@ -33,6 +50,7 @@
                            <td>Price</td>
                            <td>Quantity</td>
                            <td>Total</td>
+                           <td>Status</td>
                         </tr>
 
                         @foreach ($product_details as $p)
@@ -42,6 +60,9 @@
                            <td>₹ {{$p['price']}}</td>
                            <td>{{$p['qty']}}</td>
                            <td>₹ {{$p['total']}}</td>
+                           <td class="h6">@php
+                               echo $p['status'] === 1 ? 'Order Successfull' : 'Order Failed';
+                           @endphp</td>
                         </tr>
                         @endforeach
 

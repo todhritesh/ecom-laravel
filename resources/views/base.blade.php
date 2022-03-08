@@ -28,10 +28,10 @@
    <body>
       <div class="hero_area">
          <!-- header section strats -->
-         <header class="header_section">
+         <header class="header_section mb-5">
             <div class="container-fluid">
-               <nav class="navbar navbar-expand-lg custom_nav-container ">
-                  <a href="" class="navbar-brand text-dark fs-2 fw-bolder py-0">JMDElec</a>
+               <nav class="navbar navbar-expand-lg custom_nav-container fixed-top bg-light p-3 ">
+                  <a href="{{route('index')}}" class="navbar-brand text-dark fs-2 fw-bolder py-0">JMDElec</a>
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 
                   </button>

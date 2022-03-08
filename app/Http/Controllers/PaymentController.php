@@ -8,9 +8,11 @@ use App\Models\Payment;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session as FacadesSession;
 use Razorpay\Api\Api;
 use Session;
 use Redirect;
+use Symfony\Component\HttpFoundation\Session\Session as SessionSession;
 
 class PaymentController extends Controller
 {
@@ -87,7 +89,7 @@ class PaymentController extends Controller
                 $o->o_status = 1;
                 $o->save();
             }
-            \Session::put('success', 'Payment successful');
+            $request->session()->flash('success', 'Payment successful');
             return redirect()->route("order");
         }else{
             $save_payment = new Payment();
@@ -97,7 +99,7 @@ class PaymentController extends Controller
             $save_payment->status = $response['status'];
             $save_payment->amount = $response['amount'];
             $save_payment->save();
-            
+
             $order= Order::find($oid);
             $order->order_status = -1;
             // $order->paid = $response['amount'];
@@ -119,7 +121,7 @@ class PaymentController extends Controller
                 $o->o_status = -1;
                 $o->save();
 
-                \Session::put('failed', 'Payment failed');
+                $request->session()->flash('failure','Payment Failed !');
                 return redirect()->route("order");
             }
 

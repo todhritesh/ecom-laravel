@@ -7,11 +7,11 @@
 
 <!-- end header section -->
          <!-- slider section -->
-         <section class="p-5" style="background-color: #f7444e" >
+         <section class="p-5"  >
             {{-- <div class="slider_bg_box">
                <img src="{{ asset('/images/homeBanner.png') }}" alt="" style="height: 550px">
             </div> --}}
-            <div class="card border border-0 mx-auto col-12 p-5" style="background-color: #f7444e">
+            <div class="card border border-0 mx-auto col-12 p-5" style="background-color: #f7444e;border-radius: 30% 10%;">
                <div class="card-body text-center p-5 m-5">
                   {{-- <p class="display-4 text-center mb-0">YOUR ONE STOP SHOP FOR SOUND REQUIREMENTS.</p> --}}
                 <div class="display-1 p-5 text-white " style="font-weight: bold">
@@ -298,10 +298,10 @@
                   <div class="box">
                      <div class="option_container">
                         <div class="options">
-                           <a href="" class="option1">
-                           {{$pro->pro_title}}
+                           <a href="{{ route('product.singleView',['id' => $pro->id]) }}" class="option1">
+                           View Product
                            </a>
-                           <a href="" class="option2">
+                           <a href="{{ route('buy_now',['pid'=>$pro->id]  ) }}" class="option2">
                            Buy Now
                            </a>
                         </div>
@@ -313,7 +313,7 @@
                         <h5>
                            {{$pro->pro_title}}
                         </h5>
-                        
+
                      </div>
                   </div>
                </div>

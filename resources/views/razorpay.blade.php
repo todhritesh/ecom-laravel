@@ -25,14 +25,14 @@
                                 <strong>Error!</strong> {{ $message }}
                             </div>
                         @endif
-                        @if($message = Session::get('success'))
+                        {{-- @if($message = Session::get('success'))
                             <div class="alert alert-success alert-dismissible fade {{ Session::has('success') ? 'show' : 'in' }}" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
                                 <strong>Success!</strong> {{ $message }}
                             </div>
-                        @endif
+                        @endif --}}
                         <div class="card card-default">
                             <div class="card-header">
                                 Laravel 8 - Razorpay Payment Gateway Integration
