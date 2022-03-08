@@ -70,8 +70,6 @@ class PaymentController extends Controller
             $order->order_status = 1;
             // $order->paid = $response['amount'];
             $order->save();
-            $order->order_status = 1;
-            $order->save();
 
             $orderItemLoop= OrderItem::where([['order_id',$oid],['o_status',0],['user_id',Auth::user()->id]])->get();
             foreach($orderItemLoop as $o){
@@ -89,6 +87,8 @@ class PaymentController extends Controller
                 $o->o_status = 1;
                 $o->save();
             }
+            \Session::put('success', 'Payment successful');
+            return redirect()->route("order");
         }else{
             $save_payment = new Payment();
             $save_payment->r_payment_id = $response['id'];
@@ -97,10 +97,35 @@ class PaymentController extends Controller
             $save_payment->status = $response['status'];
             $save_payment->amount = $response['amount'];
             $save_payment->save();
-        }
-        return redirect()->route("index");
+            
+            $order= Order::find($oid);
+            $order->order_status = -1;
+            // $order->paid = $response['amount'];
+            $order->save();
 
-        \Session::put('success', 'Payment successful');
+            $orderItemLoop= OrderItem::where([['order_id',$oid],['o_status',0],['user_id',Auth::user()->id]])->get();
+            foreach($orderItemLoop as $o){
+                $pro = Product::where('id',$o->product_id)->first();
+
+                $pro_price = $pro->pro_price ;
+                $user_margin = $pro->user_margin ;
+                $retail_margin = $pro->retail_margin ;
+
+                $cal_discount = Auth::user()->role == 'user' ? (($pro_price * $user_margin)/100) :  (($pro_price * $retail_margin)/100) ;
+                $cal_price = $pro_price - $cal_discount ;
+
+                $cal_total = $o->qty * $cal_price;
+                $o->paid = $cal_total;
+                $o->o_status = -1;
+                $o->save();
+
+                \Session::put('failed', 'Payment failed');
+                return redirect()->route("order");
+            }
+
+        }
+
+
 
         return redirect()->back();
     }

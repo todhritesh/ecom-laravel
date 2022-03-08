@@ -120,7 +120,7 @@
                         </li>
                         <li class="nav-item dropdown">
                            <li class="nav-item dropdown">
-                              <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Profile <span class="caret"></span></a>
+                              <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">{{auth()->user()->name}} <span class="caret"></span></a>
                               <ul class="dropdown-menu">
                                 <li class="dropdown-item"><a href="{{ route('order') }}">Orders</a></li>
                                 <li class="dropdown-item"><a href="{{ route('logout') }}">Logout</a></li>

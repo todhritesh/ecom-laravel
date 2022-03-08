@@ -203,7 +203,7 @@ class OrderController extends Controller
             return redirect()->route("login");
         }
         $user_id = Auth::user()->id;
-            $getOrderHistory = OrderItem::where([["user_id",$user_id],["o_status",1]])->get();
+            $getOrderHistory = OrderItem::where([["user_id",$user_id],["o_status",'!=',0]])->get();
             $product_details_array = [];
             $pay_amount = 0;
             foreach($getOrderHistory as $pro_details){
@@ -221,7 +221,7 @@ class OrderController extends Controller
                     'price'=>$cal_price,
                     'qty'=>$pro_details->qty,
                     'image'=>$p->pro_image,
-                    // 'total'=>$cal_total,
+                    'status'=>$pro_details->o_status,
                     'total'=>$pro_details->paid
                 ];
             }
