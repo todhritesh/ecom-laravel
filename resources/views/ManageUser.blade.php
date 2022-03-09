@@ -39,6 +39,7 @@
                     <td>{{ \Carbon\Carbon::parse($u->created_at)->diffForHumans()}}</td>
                     <td>
                         <form action="{{route('manageUsers')}}" method="post">
+                            @csrf
                             <input name='userId' type="text" hidden value={{$u->id}}>
                             <button class='btn btn-success'>@php
                                echo  $u->role==='user' ? 'Retailer' : "User"

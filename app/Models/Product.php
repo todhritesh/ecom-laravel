@@ -10,6 +10,16 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'pro_title',
+'category_id',
+'user_margin',
+'retail_margin',
+'pro_image',
+'pro_qty',
+'pro_description',
+'pro_price',
+    ];
     function category(){
         return $this->HasOne(Category::class,"id","category_id");
     }
