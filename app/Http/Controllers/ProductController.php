@@ -13,6 +13,7 @@ class ProductController extends Controller
 
     public function index()
     {
+        // return request()->path();
         if(Auth::user()){
             $user_id = Auth::user()->id;
             $count_cart = OrderItem::where([['user_id',$user_id],['o_status',0]])->count();
@@ -40,7 +41,7 @@ class ProductController extends Controller
         else{
             $count_cart = 0;
         }
-        
+
         $data = [
             "selected_pro" => Product::find($id),
             "category" => Category::all(),
