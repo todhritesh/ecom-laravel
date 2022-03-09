@@ -54,7 +54,7 @@
 
             <nav class="navbar navbar-expand-lg custom_nav-container fixed-top bg-light">
                <div class="container-fluid">
-                  <a href="{{route('index')}}" class="navbar-brand text-dark fs-2 fw-bolder py-0">JMDElec</a>
+                  <a href="{{route('index')}}" class="navbar-brand text-dark fs-2 fw-bolder p-3">JMDElec</a>
                   <button class="navbar-toggler" type="button" data-toggle="collapse"
                      data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                      aria-label="Toggle navigation">
