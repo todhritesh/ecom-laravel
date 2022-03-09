@@ -5,16 +5,30 @@
 @section('content')
 
 
+
 <!-- end header section -->
          <!-- slider section -->
-         <section class="p-md-5"  >
+         <section class="p-md-5 d-none d-lg-block"  >
             {{-- <div class="slider_bg_box">
                <img src="{{ asset('/images/homeBanner.png') }}" alt="" style="height: 550px">
             </div> --}}
             <div class="card border border-0 mx-auto col-12 p-md-5" style="background-color: #f7444e; border-radius:20% 2% 20% 2%">
                <div class="card-body text-center p-md-5 m-2">
                   {{-- <p class="display-4 text-center mb-0">YOUR ONE STOP SHOP FOR SOUND REQUIREMENTS.</p> --}}
-                <div class="display-1 col-lg-12 p-md-5 text-white py-1" style="font-weight: bold">
+                <div class=" display-1 col-lg-12 p-md-5 text-white py-1" style="font-weight: bold">
+                    YOUR ONE STOP SHOP FOR SOUND REQUIREMENTS.
+                </div>
+                </div>
+            </div>
+         </section>
+         <section class="p-md-5 d-block d-lg-none px-3">
+            {{-- <div class="slider_bg_box">
+               <img src="{{ asset('/images/homeBanner.png') }}" alt="" style="height: 550px">
+            </div> --}}
+            <div class="card border border-0 mx-auto col-12 p-md-5" style="background-color: #f7444e; border-radius:20% 2% 20% 2%">
+               <div class="card-body text-center p-md-5 m-2">
+                  {{-- <p class="display-4 text-center mb-0">YOUR ONE STOP SHOP FOR SOUND REQUIREMENTS.</p> --}}
+                <div class=" display-4 col-lg-12 p-md-5 text-white py-1" style="font-weight: bold">
                     YOUR ONE STOP SHOP FOR SOUND REQUIREMENTS.
                 </div>
                 </div>

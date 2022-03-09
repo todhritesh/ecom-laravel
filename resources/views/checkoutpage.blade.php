@@ -25,7 +25,7 @@
                    <div class="card">
                        <div class="card">
                            <div class="card-header">BILLING DETAILS</div>
-                           <div class="card-body">
+                           <div class="card-body table-responsive">
                                 <table class="table">
                                     <tr>
                                         <td>Product Name</td>
@@ -46,8 +46,7 @@
                                         @endforeach
 
                                     <tr class="mt-4">
-                                        <td></td>
-                                        <td colspan="1" class="bg-warning h4 text-center">Sub Total : </td>
+                                        <td colspan="2" class="bg-warning h4 text-center ">Sub Total : </td>
                                         <td></td>
                                         <td class="h5 text-center">₹ {{$pay_amount}}</td>
                                     </tr>

@@ -28,9 +28,9 @@
 
 </head>
 <style>
-   *{
+   * {
       margin: 0%;
-      padding:0%;
+      padding: 0%;
       box-sizing: border-box;
    }
 
@@ -40,10 +40,11 @@
       }
    } */
 
-   
-
-
-   
+   @media screen and (min-width: 992px){
+      #dropdown2{
+        left: -60%
+      }
+   }
 </style>
 
 <body>
@@ -66,20 +67,23 @@
                            <a class="nav-link" style="color:@php echo Request::path()==" /"?"#f7444e":"black" @endphp"
                               href="{{ route  ('index') }}">Home <span class="sr-only">(current)</span></a>
                         </li>
-                        <li class="nav-item dropdown">
-                           <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button"
-                              style="color:@php echo Request::path()==" category"?"#f7444e":"black" @endphp"
-                              aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Categories <span
-                                    class="caret"></span></a>
-                           <ul class="dropdown-menu">
-                              @foreach ($category as $cat)
-                              <li><a href="{{ route('category.index', ['id'=>$cat->id]) }}">{{$cat->cat_title}}</a></li>
-                              @endforeach
-                              <li>
-                                 <hr class="dropdown-divider">
-                              </li>
-                              <li><a href="" class="">View all...</a></li>
-                           </ul>
+                        <li class="nav-item">
+                           <div class="dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button"
+                                 style="color:@php echo Request::path()==" category"?"#f7444e":"black" @endphp"
+                                 aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Categories <span
+                                       class="caret"></span></a>
+                              <ul class="dropdown-menu" style="position: absolute">
+                                 @foreach ($category as $cat)
+                                 <li><a href="{{ route('category.index', ['id'=>$cat->id]) }}">{{$cat->cat_title}}</a>
+                                 </li>
+                                 @endforeach
+                                 <li>
+                                    <hr class="dropdown-divider">
+                                 </li>
+                                 <li><a href="" class="">View all...</a></li>
+                              </ul>
+                           </div>
                         </li>
                         <li class="nav-item">
                            <a class="nav-link" href="{{ route('product.index') }}"
@@ -158,12 +162,12 @@
 
                            </a>
                         </li>
-                        <li class="nav-item dropdown">
+                        {{-- <li class="nav-item dropdown"> --}}
                         <li class="nav-item dropdown">
                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button"
                               aria-haspopup="true" aria-expanded="true"> <span
                                  class="nav-label">{{auth()->user()->name}} <span class="caret"></span></a>
-                           <ul class="dropdown-menu">
+                           <ul class="dropdown-menu" id="dropdown2" style="position: absolute;  ">
                               @if (auth()->user()->role==='admin')
                               <li class="dropdown-item"><a href="{{ route('manageUsers') }}">Manage Users</a></li>
                               @endif
@@ -171,7 +175,7 @@
                               <li class="dropdown-item"><a href="{{ route('logout') }}">Logout</a></li>
                            </ul>
                         </li>
-                        </li>
+                        {{-- </li> --}}
                         {{-- <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">LOGOUT</a></li> --}}
                         @else
                         <li class="nav-item"><a href="{{ route('login') }}" class="nav-link"
@@ -179,7 +183,7 @@
                         @endif
                         <form class="form-inline">
                            <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                              <i class="fa fa-search" aria-hidden="true"></i>
+                              <i class="bi bi-search fw-bold" aria-hidden="true"></i>
                            </button>
                         </form>
                      </ul>
@@ -201,7 +205,7 @@
 
       <!-- footer start -->
       <footer>
-         <div class="container">
+         <div class="container text-center">
             <div class="row">
                <div class="col-md-4">
                   <div class="full">
@@ -216,7 +220,7 @@
                   </div>
                </div>
                <div class="col-md-8">
-                  <div class="row">
+                  <div class="row m">
                      <div class="col-md-7">
                         <div class="row">
                            <div class="col-md-6">

@@ -24,8 +24,8 @@
 
             @if ($cart_products)
                 <div class="row" >
-                    <div class="col-8">
-                        <div class="col-4 ms-auto mb-3" >
+                    <div class="col-lg-9 col-sm-12 col-md-5">
+                        <div class="col-lg-4 ms-auto me-lg-5 mb-3" >
                             <a href="{{route('checkout')}}" class="btn btn-success w-100">Checkout</a>
                         </div>
                     </div>
