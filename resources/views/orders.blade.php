@@ -42,7 +42,7 @@
             <div class="card">
                <div class="card">
                   <div class="card-header">BILLING DETAILS</div>
-                  <div class="card-body">
+                  <div class="card-body table-responsive">
                      <table class="table">
                         <tr>
                            <td>Product Name</td>
