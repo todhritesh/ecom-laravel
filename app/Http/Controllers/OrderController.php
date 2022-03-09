@@ -156,7 +156,7 @@ class OrderController extends Controller
                 'oid' => $check_oid,
                 "cart_value" => $count_cart
             ];
-            return view('checkoutPage',$data);
+            return view('checkoutpage',$data);
     }
 
     function removeFromCart($pid=null){
