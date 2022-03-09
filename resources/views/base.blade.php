@@ -30,6 +30,7 @@
          <!-- header section strats -->
          <header class="header_section mb-5">
             <div class="container-fluid">
+
                <nav class="navbar navbar-expand-lg custom_nav-container fixed-top bg-light p-3 ">
                   <a href="{{route('index')}}" class="navbar-brand text-dark fs-2 fw-bolder py-0">JMDElec</a>
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -122,6 +123,9 @@
                            <li class="nav-item dropdown">
                               <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">{{auth()->user()->name}} <span class="caret"></span></a>
                               <ul class="dropdown-menu">
+                                @if (auth()->user()->role==='admin')
+                                    <li class="dropdown-item"><a href="{{ route('manageUsers') }}">Manage Users</a></li>
+                                @endif
                                 <li class="dropdown-item"><a href="{{ route('order') }}">Orders</a></li>
                                 <li class="dropdown-item"><a href="{{ route('logout') }}">Logout</a></li>
                               </ul>
@@ -139,6 +143,8 @@
                      </ul>
                   </div>
                </nav>
+
+
             </div>
          </header>
 
