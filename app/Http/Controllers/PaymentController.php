@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session as FacadesSession;
 use Razorpay\Api\Api;
-use Session;
-use Redirect;
-use Symfony\Component\HttpFoundation\Session\Session as SessionSession;
 
 class PaymentController extends Controller
 {
@@ -42,7 +39,7 @@ class PaymentController extends Controller
     public function payment(Request $request)
     {
         $input = $request->all();
-
+        
         $api = new Api(env('RAZOR_KEY'), env('RAZOR_SECRET'));
 
         $payment = $api->payment->fetch($input['razorpay_payment_id']);

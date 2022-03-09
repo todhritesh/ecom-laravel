@@ -7,14 +7,14 @@
 
 <!-- end header section -->
          <!-- slider section -->
-         <section class="p-5"  >
+         <section class="p-md-5"  >
             {{-- <div class="slider_bg_box">
                <img src="{{ asset('/images/homeBanner.png') }}" alt="" style="height: 550px">
             </div> --}}
-            <div class="card border border-0 mx-auto col-12 p-5" style="background-color: #f7444e;border-radius: 30% 10%;">
-               <div class="card-body text-center p-5 m-5">
+            <div class="card border border-0 mx-auto col-12 p-md-5" style="background-color: #f7444e; border-radius:20% 2% 20% 2%">
+               <div class="card-body text-center p-md-5 m-2">
                   {{-- <p class="display-4 text-center mb-0">YOUR ONE STOP SHOP FOR SOUND REQUIREMENTS.</p> --}}
-                <div class="display-1 p-5 text-white " style="font-weight: bold">
+                <div class="display-1 col-lg-12 p-md-5 text-white py-1" style="font-weight: bold">
                     YOUR ONE STOP SHOP FOR SOUND REQUIREMENTS.
                 </div>
                 </div>
@@ -275,9 +275,9 @@
       <section class="arrival_section">
          <div class="container">
             <div class="box">
-               <div class="arrival_bg_box d-flex">
-                  <img src="images/arrival-bg.png" alt="">
-                  <p class="display-4 fw-bold mt-5 col-lg-7 ms-auto me-5">BIGGEST AHUJA SUPPLIER IN PURNEA.</p>
+               <div class="arrival_bg_box d-flex px-sm-0">
+                  <img src="{{ asset('images/arrival-bg.png') }}" alt="" class="d-none d-md-inline d-lg-inline">
+                  <p class="display-4 fw-bold mt-md-5  col-lg-7 ms-auto me-5">BIGGEST AHUJA SUPPLIER IN PURNEA.</p>
                </div>
             </div>
          </div>

@@ -25,6 +25,9 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
    </head>
+   <style>
+      
+   </style>
    <body>
       <div class="hero_area">
          <!-- header section strats -->
@@ -33,15 +36,15 @@
                <nav class="navbar navbar-expand-lg custom_nav-container fixed-top bg-light p-3 ">
                   <a href="{{route('index')}}" class="navbar-brand text-dark fs-2 fw-bolder py-0">JMDElec</a>
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-
+                     <span class="navbar-toggler-icon"></span>
                   </button>
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
                      <ul class="navbar-nav">
                         <li class="nav-item active">
-                           <a class="nav-link" href="{{ route  ('index') }}">Home <span class="sr-only">(current)</span></a>
+                           <a class="nav-link" style="color:@php echo Request::path()=="/"?"#f7444e":"black" @endphp" href="{{ route  ('index') }}">Home <span class="sr-only">(current)</span></a>
                         </li>
                        <li class="nav-item dropdown">
-                           <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Categories <span class="caret"></span></a>
+                           <a class="nav-link dropdown-toggle" href="#"  data-toggle="dropdown" role="button" style="color:@php echo Request::path()=="category"?"#f7444e":"black" @endphp" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Categories <span class="caret"></span></a>
                            <ul class="dropdown-menu">
                               @foreach ($category as $cat)
                               <li><a href="{{ route('category.index', ['id'=>$cat->id]) }}">{{$cat->cat_title}}</a></li>
@@ -51,14 +54,14 @@
                            </ul>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="{{ route('product.index') }}">Products</a>
+                           <a class="nav-link" href="{{ route('product.index') }}" style="color:@php echo Request::path()=="products"?"#f7444e":"black" @endphp">Products</a>
                         </li>
                         {{-- <li class="nav-item">
                            <a class="nav-link" href="contact.html">Contact</a>
                         </li> --}}
                         @if (Auth::check())
                         <li class="nav-item">
-                           <a class="me-4 nav-link position-relative" href="{{ route('cart') }}">
+                           <a class="me-4 nav-link position-relative" href="{{ route('cart') }}" style="color:@php echo Request::path()=="cart"?"#f7444e":"black" @endphp">
                               <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                                  <g>
                                     <g>
@@ -122,14 +125,14 @@
                            <li class="nav-item dropdown">
                               <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">{{auth()->user()->name}} <span class="caret"></span></a>
                               <ul class="dropdown-menu">
-                                <li class="dropdown-item"><a href="{{ route('order') }}">Orders</a></li>
+                                <li class="dropdown-item" style="background-color:@php echo Request::path()=="orders"?"#f7444e; border-radius:5px":"" @endphp"><a style="color:black" href="{{ route('order') }}">Orders</a></li>
                                 <li class="dropdown-item"><a href="{{ route('logout') }}">Logout</a></li>
                               </ul>
                            </li>
                         </li>
                         {{-- <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">LOGOUT</a></li> --}}
                         @else
-                            <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">LOGIN</a></li>
+                            <li class="nav-item"><a href="{{ route('login') }}" class="nav-link" style="color:@php echo Request::path()=="login"?"#f7444e":"black" @endphp">LOGIN</a></li>
                         @endif
                         <form class="form-inline">
                            <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
