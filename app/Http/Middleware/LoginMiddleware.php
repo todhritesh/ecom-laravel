@@ -20,7 +20,7 @@ class LoginMiddleware
         $user = Auth::user();
 
         if(!$user){
-            return redirect()->back();
+            return redirect()->route('login');
         }
        
         return $next($request);

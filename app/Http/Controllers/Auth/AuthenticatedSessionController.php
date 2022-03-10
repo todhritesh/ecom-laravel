@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -34,6 +35,7 @@ class AuthenticatedSessionController extends Controller
         if(Auth::user()->role==='admin')
             return redirect()->route("manageUsers");
         if(Auth::user()->role==='user' || Auth::user()->role==='retailer')
+            Session::flash('loggedin','you are logged in !');
             return redirect()->route('index');
     }
 

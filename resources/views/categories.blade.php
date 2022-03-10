@@ -26,28 +26,7 @@
             </p>
          </div>
          <div class="row">
-            {{-- <div class="col-sm-6 col-md-4 col-lg-3">
-               <div class="box">
-                  <div class="option_container">
-                     <div class="options">
-                        <a href="" class="option2">
-                        Buy Now
-                        </a>
-                     </div>
-                  </div>
-                  <div class="img-box">
-                     <img src="images/p1.png" alt="">
-                  </div>
-                  <div class="detail-box">
-                     <h5>
-                        Men's Shirt
-                     </h5>
-                     <h6>
-                        $75
-                     </h6>
-                  </div>
-               </div>
-            </div> --}}
+            
 
             @if (count($product) > 0)
             @foreach ($product as $pro)
@@ -58,7 +37,7 @@
                         <a href="{{ route('product.singleView',['id' => $pro->id]) }}" class="option1">
                            View Product
                         </a>
-                        <a href="" class="option2">
+                        <a href="{{ route('buy_now',['pid'=>$pro->id]  ) }}" class="option2">
                         Buy Now
                         </a>
                         <div class="bg-light text-center">
