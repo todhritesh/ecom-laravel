@@ -40,16 +40,18 @@
    {{-- <div class="slider_bg_box">
       <img src="{{ asset('/images/homeBanner.png') }}" alt="" style="height: 550px">
    </div> --}}
-   @if( Session::has('loggedin'))
-<div class="row" style="position: relative">
-   <div class="col-6 alert alert-success alert-dismissible fade show" style="z-index:2234;position: absolute;left:25%;top:10px" role="alert">
-      <span class="h1">Success</span> <span class="h4">&nbsp;&nbsp;&nbsp; You are logged in !</span>
-      <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-</div>
-@endif
+
+   {{-- @if( Session::has('loggedin'))
+   <div class="row" style="position: relative">
+      <div class="col-12 alert alert-success alert-dismissible fade show" style="z-index:2234;position: absolute;top:10px" role="alert">
+         <span class="h3">Success</span> <span class="h6">&nbsp;&nbsp;&nbsp; You are logged in !</span>
+         <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+         </button>
+      </div>
+   </div>
+@endif --}}
+
    <div class="card border border-0 mx-auto col-12"
       style="padding: 20% 0%;background-color: #f7444e; border-radius:20% 2% 20% 2%;padding:20% 0% ">
       <div class="card-body text-center p-md-5 m-2 py-5">
